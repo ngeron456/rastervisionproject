@@ -5,10 +5,12 @@ date: "December 11, 2018"
 output: html_document
 ---
 
-## Rastervision: Trust the Process
-1. What is the overall aim of the project and what specific Earth Observation is it trying to solve?
-  Rastervision had the following goals: run rastervision quickstart, run rastervision example(s), run rastervision on personal data. Our group and different reasons for using rastervision but ultimately, the goal was to complete semantic segmentation for urban tree canopy and fairy ring fungus in cranberry bogs.  
-dgdfgfbgff
+## The Goals of the Project 
+# 1. What is the overall aim of the project and what specific Earth Observation is it trying to solve?
+  Rastervision is an open source framework that uses python to build computer vision models on satelite imagery.  Our group wanted to use drone imagery and high resolution satelite imagery to segment fairy fungus rings in cranberry bogs and urban tree canopy cover respectively. We used an AWS instance to create a linux environment with rastervision and docker installed. Our group had the following goals: run rastervision quickstart, run rastervision example(s), run rastervision on personal data. Our group was only able to complete the first 2 objectives however we hope to provide information on how to prepare data to run your own semantic segmentation based on personal data.
+  Expertise barriers, model choice, and calibration are all limitations in earth observation identified by (the previous class?). Rastervision attempts to act as a potential solution to these limitations by streamlining the model choice, making deep learning algorithms and computer vision accessable to non computer scientists (like geographers). The two models that rastervision uses to run its different examples are Mobilenet (semantic segmentation) and Resnet50 (chip classification).  These models use deep neural networks to train computers to recognize pixels in the case of Mobilenet and objects in the case of Resnet50. Rastervision allows these complex computer vision models to be used by inexperienced users to perform semantic segmentation and chip classification on large datasets. However, this is not necessarily a perfect solution to the limitations of earth observation as users do not a strong grasp of how the models run which will influence the outputs. The push pull between making models like Mobilenet acceccessable and understanding the algorithm is always going to be balance. Rastervisions is another useful stepping stone in advancing the earth observation.    
+  
+# Methods/Workflow
 2. What were the methods you developed and/or applied?
 We developed with the help of Professor Estes and Lewfish how to run rastervision in a p3.2 linux instance (GPU?) on aws using cygwin to ssh into the instance.
 
@@ -17,9 +19,8 @@ The rastervision group had success running the ISPRS Potsdam Semantic Segmentati
 
 This example uses three different data layers in order to run the predictions. The data is 5cm aerial imagery which uses RBGIR bands to create a true color composite. The second layer is a normalized DSM using lidar imagery.  Finally, ground truth labels are created by hand for 6 classes: building, tree, low vegetation, impervious, car, and clutter.
 
+# Results
 3. What were your results? 
-
-
 
 <img src="images/RGBimage.png" alt"7th Test" width="400">
 
@@ -34,3 +35,11 @@ This example uses three different data layers in order to run the predictions. T
 
 4. Did the results show that the project aim was realized? Was an Earth Observation limit pushed back (or potentially pushed back)? If this was a group project, how were the results of individual efforts integrated? 
 5. What are potential improvements, and any next steps you plan to take? 
+
+
+### References
+
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, & Jian Sun. “Deep Residual Learning for Image Recognition”. arXiv 2015.
+
+G. Howard, Andrew & Zhu, Menglong & Chen, Bo & Kalenichenko, Dmitry & Wang, Weijun & Weyand, Tobias & Andreetto, Marco & Adam, Hartwig. (2017). MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications.
+
