@@ -13,5 +13,12 @@ dgdfgfbgff
 We developed with the help of Professor Estes and Lewfish how to run rastervision in a p3.2 linux instance (GPU?) on aws using cygwin to ssh into the instance. 
 
 3. What were your results? 
+
+![](docs/images/2percent.png?raw=true)
+
+<br><br>
+
+![](docs/images/7thtestresult.png?raw=true)
+
 4. Did the results show that the project aim was realized? Was an Earth Observation limit pushed back (or potentially pushed back)? If this was a group project, how were the results of individual efforts integrated? 
 5. What are potential improvements, and any next steps you plan to take? 
