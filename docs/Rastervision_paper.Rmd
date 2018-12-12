@@ -1,6 +1,6 @@
 ---
-title: "Rastervision_paper"
-author: "NickyG"
+title: "Rastervision: Trust the Process"
+author: "Marc, Clare, and NickyG"
 date: "December 11, 2018"
 output: html_document
 ---
@@ -10,15 +10,27 @@ output: html_document
   Rastervision had the following goals: run rastervision quickstart, run rastervision example(s), run rastervision on personal data. Our group and different reasons for using rastervision but ultimately, the goal was to complete semantic segmentation for urban tree canopy and fairy ring fungus in cranberry bogs.  
 dgdfgfbgff
 2. What were the methods you developed and/or applied?
-We developed with the help of Professor Estes and Lewfish how to run rastervision in a p3.2 linux instance (GPU?) on aws using cygwin to ssh into the instance. 
+We developed with the help of Professor Estes and Lewfish how to run rastervision in a p3.2 linux instance (GPU?) on aws using cygwin to ssh into the instance.
+
+The rastervision group had success running the ISPRS Potsdam Semantic Segmentation example from rastervision examples. The input data is below
+<img src="images/inputdata.png" alt"7th Test" width="800">
+
+This example uses three different data layers in order to run the predictions. The data is 5cm aerial imagery which uses RBGIR bands to create a true color composite. The second layer is a normalized DSM using lidar imagery.  Finally, ground truth labels are created by hand for 6 classes: building, tree, low vegetation, impervious, car, and clutter.
 
 3. What were your results? 
 
-![](docs/images/2percent.png?raw=true)
+
+
+<img src="images/RGBimage.png" alt"7th Test" width="400">
+
+<img src="images/trainingdata.png" alt"7th Test" width="400">
+
+
+<img src="images/2percent.png" alt"7th Test" width="400">
 
 <br><br>
 
-![](docs/images/7thtestresult.png?raw=true)
+<div style="width:50%">![7th Test](images/7thtestresult.png?raw=true)</div>
 
 4. Did the results show that the project aim was realized? Was an Earth Observation limit pushed back (or potentially pushed back)? If this was a group project, how were the results of individual efforts integrated? 
 5. What are potential improvements, and any next steps you plan to take? 
