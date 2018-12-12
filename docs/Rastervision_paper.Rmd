@@ -20,7 +20,7 @@ The rastervision group had success running the ISPRS Potsdam Semantic Segmentati
 This example uses three different data layers in order to run the predictions. The data is 5cm aerial imagery which uses RBGIR bands to create a true color composite. The second layer is a normalized DSM using lidar imagery.  Finally, ground truth labels are created by hand for 6 classes: building, tree, low vegetation, impervious, car, and clutter.
 
 # Results
-3. What were your results? 
+3. What were your results? IDKKKK
 
 <img src="images/RGBimage.png" alt"7th Test" width="400">
 
