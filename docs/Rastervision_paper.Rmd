@@ -12,14 +12,14 @@ output: html_document
   
 # Methods/Workflow
 2. What were the methods you developed and/or applied?
-With the help of Professor Estes and Lewis Fishgold, we were able to run rastervision in a GPU p3.2xlarge ubuntu linux instance on Amazon Web Services (AWS). The instance was created from an image with Docker and NVidia installed. Cygwin was used to access the instance. SSH compatability and python were two tool options necessary to download within cygwin. Once this was installed we needed to install the AWS command line tools using: 
-'''bash
+With the help of Dr. Lyndon Estes and Lewis Fishgold, we were able to run rastervision in a GPU p3.2xlarge ubuntu linux instance on Amazon Web Services (AWS). The instance was created from an image with Docker and NVidia installed. Cygwin was used to access the instance. SSH compatability and python were two tool options necessary to download within cygwin. Once this was installed we needed to install the AWS command line tools using: 
+```bash
 pip install awscli
-'''
+```
 The next step was to produce Public SSH keys so multiple users could access the AWS instance. Within cygwin, we followed the first two steps described in [Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) and then to set security for our permissions followed up with:
-'''bash
+```bash
 chmod 400 ~/.ssh/id_rsa
-'''
+```
 
 We had success running the ISPRS Potsdam Semantic Segmentation example from [rastervision examples github](https://github.com/azavea/raster-vision-examples). The input data is below.
 <br><br>
@@ -30,9 +30,9 @@ Figure 1. Borrowed from the [ISPRS 2D Semantic Labeling Contest - Potsdam webpag
 
 This example uses three different data layers in order to run the predictions. The data is 5cm aerial imagery which uses RBGIR bands to create a true color composite. The second layer is a normalized DSM using lidar imagery.  Finally, ground truth labels are created by hand for 6 classes: building, tree, low vegetation, impervious, car, and clutter. The format of six classes was ideal as the files utlized 3 bands, each with a binary value, for a total of 6 possible combinations. The RGBIR and label files were available as TIFFs. The lidar data was only used for distinguishing the classes and was not necessary beyond identifying the training data. Therefore, for future imitations lidar data is unneccesary if other means of classifying training data is used. All of the training data was downloaded through the request form indicated in the raster vision examples github, and uploaded to an Amazon S3. 
 
-After the initial set up, and our Public SSH keys were added by the instance administrator, Professor Estes, we were able to log into the instance in cygwin via:
+After the initial set up, and our Public SSH keys were added by the instance administrator, Lyndon Estes, we were able to log into the instance in cygwin via:
 ```bash
-<AWS USER NAME> ubuntu@<INSTANCE IP #>
+<AWS USER NAME> ubuntu@<INSTANCE IP ADDRESS>
 ```
 Once there, our successful workflow was:
 ```bash
@@ -90,14 +90,16 @@ Figure 6. The sample field iso cluster classification against the NGB orthomosai
 <img src="images/samplengb.png" alt"7th Test" width="400">
 Figure 7. The NGB orthomosaic test field with the fishnet grid to form individual images.
 
+
 The next step was to create corresponding NGB and label image files. This was done using the ArcMap Model Builder to iterate through each row to clip and save as a TIFF. 
 
 <img src="images/model.png" alt"7th Test" width="800">
+
 Figure 8. The model used to take convert the fishnet grid to individual TIFFs.
 <br><br>
 
 Steps to follow would be to upload this dataset to the AWS S3 and adjust the code to reference this. Once the data and root folders are created, an instance can be launched and the previous workflow used to predict the vegetation classes. Once this completes, the data will be analyzed in hope that the predicted data is more informative to the stages of fairy ring fungus on the cranberry bog than the training data. 
-### References
+# References
 
 Eduardo Fernandez-Moral, Renato Martins, Denis Wolf, Patrick Rives. A new metric for evaluating semantic segmentation: leveraging global and contour accuracy. Workshop on Planning, Perception and Navigation for Intelligent Vehicles, PPNIV17, Sep 2017, Vancouver, Canada.
 
