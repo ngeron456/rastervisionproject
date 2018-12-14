@@ -58,7 +58,7 @@ rastervision run local -e potsdam.semantic_segmentation -a root_uri <Path to S3 
 
 
 # Results
-3. What were your results? TERRSET CROSS TABULAR TEST? <br><br>
+3. What were your results?  <br><br>
 Several attempts were made to run the rastervision code for the ISPRS Potsdam semantic segmentation dataset. Though our Amazon instance has GPU available, we discovered that the code referenced a CPU workflow. After 18 hours of running, the test completed only 2% of the task (Figure 2). Once we [adjusted for accessing the GPU](https://github.com/agroimpacts/geog287387/blob/master/materials/tutorials/ubuntu-deeplearning-ami-raster-vision.md#install-raster-vision-examples) we were evenutally able to run the code completely. A JSON file is created that indicates the success of predicting each class. Precision and a F-measure are calculated for this purpose. The F-measure is a metric to evaluate classification results that incorporates the harmonic mean of perciesion and recall metrics (Feranadez-Moral et al., 2017). 
 <img src="images/2percent.png" alt"7th Test" width="400">
 Figure 2. Predicted image after 2% completion.
@@ -99,6 +99,7 @@ Figure 8. The model used to take convert the fishnet grid to individual TIFFs.
 <br><br>
 
 Steps to follow would be to upload this dataset to the AWS S3 and adjust the code to reference this. Once the data and root folders are created, an instance can be launched and the previous workflow used to predict the vegetation classes. Once this completes, the data will be analyzed in hope that the predicted data is more informative to the stages of fairy ring fungus on the cranberry bog than the training data. 
+
 # References
 
 Eduardo Fernandez-Moral, Renato Martins, Denis Wolf, Patrick Rives. A new metric for evaluating semantic segmentation: leveraging global and contour accuracy. Workshop on Planning, Perception and Navigation for Intelligent Vehicles, PPNIV17, Sep 2017, Vancouver, Canada.
