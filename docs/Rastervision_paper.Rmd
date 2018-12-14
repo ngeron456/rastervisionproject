@@ -18,6 +18,7 @@ The rastervision group had success running the ISPRS Potsdam Semantic Segmentati
 <br><br>
 
 <img src="images/inputdata.png" alt"7th Test" width="800">
+
 Figure 1. Borrowed from the [ISPRS 2D Semantic Labeling Contest - Potsdam webpage](http://www2.isprs.org/commissions/comm3/wg4/2d-sem-label-potsdam.html).
 
 This example uses three different data layers in order to run the predictions. The data is 5cm aerial imagery which uses RBGIR bands to create a true color composite. The second layer is a normalized DSM using lidar imagery.  Finally, ground truth labels are created by hand for 6 classes: building, tree, low vegetation, impervious, car, and clutter. The format of six classes was ideal as the files utlized 3 bands, each with a binary value, for a total of 6 possible combinations. The RGBIR and label files were available as TIFFs. The lidar data was only used for distinguishing the classes and was not necessary beyond identifying the training data. Therefore, for future imitations lidar data is unneccesary if other means of classifying training data is used. All of the training data was downloaded through the request form indicated in the raster vision examples github, and uploaded to an Amazon S3. 
@@ -29,12 +30,12 @@ Several attempts were made to run the rastervision code for the ISPRS Potsdam se
 Figure 2. Predicted image after 2% completion.
 
 <img src="images/RGBimage.png" alt"7th Test" width="400">
-Original RGBIR image.
+Figure 3. Original RGBIR image.
 
 <img src="images/trainingdata.png" alt"7th Test" width="400"> 
-Training labels data.
-<div style="width:50%">![7th Test](images/7thtestresult.png?raw=true)</div>
-Output image of completed rastervision prediction.
+Figure 4. Training labels data.
+<div style="width:45%">![7th Test](images/7thtestresult.png?raw=true)</div>
+Figure 5. Output image of completed rastervision prediction.
 
 
 
