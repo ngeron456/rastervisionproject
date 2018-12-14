@@ -31,24 +31,29 @@ Figure 1. Borrowed from the [ISPRS 2D Semantic Labeling Contest - Potsdam webpag
 This example uses three different data layers in order to run the predictions. The data is 5cm aerial imagery which uses RBGIR bands to create a true color composite. The second layer is a normalized DSM using lidar imagery.  Finally, ground truth labels are created by hand for 6 classes: building, tree, low vegetation, impervious, car, and clutter. The format of six classes was ideal as the files utlized 3 bands, each with a binary value, for a total of 6 possible combinations. The RGBIR and label files were available as TIFFs. The lidar data was only used for distinguishing the classes and was not necessary beyond identifying the training data. Therefore, for future imitations lidar data is unneccesary if other means of classifying training data is used. All of the training data was downloaded through the request form indicated in the raster vision examples github, and uploaded to an Amazon S3. 
 
 After the initial set up, and our Public SSH keys were added by the instance administrator, Professor Estes, we were able to log into the instance in cygwin via:
-'''bash
+```bash
 <AWS USER NAME> ubuntu@<INSTANCE IP #>
-'''
+```
 Once there, our successful workflow was:
-'''bash
+```bash
 docker system prune -a
 cd raster-vision-examples
 vim scripts/console
-'''
+```
 Then to ensure the GPU is referenced, edit line 42 to:
-'''bash
+```bash
 IMAGE=raster-vision-examples-gpu
-'''
+```
 Additionally, edit line 34 to resemble:
-'''bash
+```bash
 docker run --runtime=nvidia ${NAME} --rm -it ${TENSORBOARD} ${AWS} ${RV_CONFIG}
-'''
-Once those adjustments are done, exit to get back to the root.
+```
+Once those adjustments are done, use "q" to exit to get back to the root. Then we can proceed to set up and run the script. 
+```bash
+cd raster-vision-examples 
+scripts/build --gpu
+scripts/console
+rastervision run local -e potsdam.semantic_segmentation -a root_uri <Path to S3 data ouput location> -a data_uri <Path to S3 Data Folder>
 
 
 # Results
