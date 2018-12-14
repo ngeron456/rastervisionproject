@@ -12,9 +12,16 @@ output: html_document
   
 # Methods/Workflow
 2. What were the methods you developed and/or applied?
-We developed with the help of Professor Estes and Lewfish how to run rastervision in a p3.2xlarge linux instance (GPU?) on aws using cygwin to ssh into the instance.
+With the help of Professor Estes and Lewis Fishgold, we were able to run rastervision in a GPU p3.2xlarge ubuntu linux instance on Amazon Web Services (AWS). The instance was created from an image with Docker and NVidia installed. Cygwin was used to access the instance. SSH compatability and python were two tool options necessary to download within cygwin. Once this was installed we needed to install the AWS command line tools using: 
+'''bash
+pip install awscli
+'''
+The next step was to produce Public SSH keys so multiple users could access the AWS instance. Within cygwin, we followed the first two steps described in [Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) and then to set security for our permissions followed up with:
+'''bash
+chmod 400 ~/.ssh/id_rsa
+'''
 
-The rastervision group had success running the ISPRS Potsdam Semantic Segmentation example from rastervision examples. The input data is below.
+We had success running the ISPRS Potsdam Semantic Segmentation example from [rastervision examples github](https://github.com/azavea/raster-vision-examples). The input data is below.
 <br><br>
 
 <img src="images/inputdata.png" alt"7th Test" width="800">
@@ -23,9 +30,30 @@ Figure 1. Borrowed from the [ISPRS 2D Semantic Labeling Contest - Potsdam webpag
 
 This example uses three different data layers in order to run the predictions. The data is 5cm aerial imagery which uses RBGIR bands to create a true color composite. The second layer is a normalized DSM using lidar imagery.  Finally, ground truth labels are created by hand for 6 classes: building, tree, low vegetation, impervious, car, and clutter. The format of six classes was ideal as the files utlized 3 bands, each with a binary value, for a total of 6 possible combinations. The RGBIR and label files were available as TIFFs. The lidar data was only used for distinguishing the classes and was not necessary beyond identifying the training data. Therefore, for future imitations lidar data is unneccesary if other means of classifying training data is used. All of the training data was downloaded through the request form indicated in the raster vision examples github, and uploaded to an Amazon S3. 
 
+After the initial set up, and our Public SSH keys were added by the instance administrator, Professor Estes, we were able to log into the instance in cygwin via:
+'''bash
+<AWS USER NAME> ubuntu@<INSTANCE IP #>
+'''
+Once there, our successful workflow was:
+'''bash
+docker system prune -a
+cd raster-vision-examples
+vim scripts/console
+'''
+Then to ensure the GPU is referenced, edit line 42 to:
+'''bash
+IMAGE=raster-vision-examples-gpu
+'''
+Additionally, edit line 34 to resemble:
+'''bash
+docker run --runtime=nvidia ${NAME} --rm -it ${TENSORBOARD} ${AWS} ${RV_CONFIG}
+'''
+Once those adjustments are done, exit to get back to the root.
+
+
 # Results
 3. What were your results? TERRSET CROSS TABULAR TEST? <br><br>
-Several attempts were made to run the rastervision code for the ISPRS Potsdam semantic segmentation dataset. Though our Amazon instance has GPU available, we discovered that the code referenced a CPU workflow. After 18 hours of running, the test completed only 2% of the task (Figure 2). Once we adjusted we were evenutally able to run the code completely. A JSON file is created that indicates the success of predicting each class. Precision and a F-measure are calculated for this purpose. The F-measure is a metric to evaluate classification results that incorporates the harmonic mean of perciesion and recall metrics (Feranadez-Moral et al., 2017). 
+Several attempts were made to run the rastervision code for the ISPRS Potsdam semantic segmentation dataset. Though our Amazon instance has GPU available, we discovered that the code referenced a CPU workflow. After 18 hours of running, the test completed only 2% of the task (Figure 2). Once we [adjusted for accessing the GPU](https://github.com/agroimpacts/geog287387/blob/master/materials/tutorials/ubuntu-deeplearning-ami-raster-vision.md#install-raster-vision-examples) we were evenutally able to run the code completely. A JSON file is created that indicates the success of predicting each class. Precision and a F-measure are calculated for this purpose. The F-measure is a metric to evaluate classification results that incorporates the harmonic mean of perciesion and recall metrics (Feranadez-Moral et al., 2017). 
 <img src="images/2percent.png" alt"7th Test" width="400">
 Figure 2. Predicted image after 2% completion.
 
@@ -45,7 +73,7 @@ Figure 5. Output image of completed rastervision prediction.
 
 4. Did the results show that the project aim was realized? Was an Earth Observation limit pushed back (or potentially pushed back)? If this was a group project, how were the results of individual efforts integrated? 
 5. What are potential improvements, and any next steps you plan to take? 
-Our recommendations would be to have the primary owner of the Amazon virtual machine service account launch all instances, as we found that adding permissions for other IPs (?) to launch instances frusrating as they would close or reset prematurely without warning. Beyond this example, we persistently ran into permission issues throughout orientating our workflow for rastervision, so steps taken early to remove user limitations is ideal. Utilizing a GPU, and ensuring the GPU is referenced when running the code, is necessary as the CPU was not capable of completing the rastervision iterations. 
+Our recommendations would be to have the primary owner of the Amazon virtual machine service account launch all instances, as we found that adding permissions for other IPs to launch instances frusrating as the remote conection would close or reset prematurely without warning. Beyond this example, we persistently ran into permission issues throughout orientating our workflow for rastervision, so steps taken early to remove user limitations is ideal. This is also alleviated some through the use of cygwin, as we were unsuccessful on completing rastervision examples on platforms such as RStudio and Powershell within AWS instances. During the initial installation of cygwin, there are options for which features to download. Here is where we recommend users to add the SSH key as well as python, as downloading python in cygwin post-installation was a challenge. For the AWS instance, utilizing a GPU and ensuring the GPU is referenced when running the code is necessary as the CPU was not capable of completing the rastervision iterations. There were many times we were stuck, with the most useful resources for pulling through being [Dr. Lynden Estes supporting documentation](file:///C:/Users/CGaffey/Documents/DroneClass/RasterVisionBick/docs/ubuntu-deeplearning-raster-vision-ami.html) the links through the [raster vision examples github] and advice from Lewis Fishgold (aka Lewfish) on the Github social media platform, [GITTER](https://gitter.im/azavea/raster-vision).
 
 ### References
 
