@@ -13,10 +13,23 @@ output: html_document
   
 # Methods/Workflow
 2. What were the methods you developed and/or applied?
-With the help of Dr. Lyndon Estes and Lewis Fishgold, we were able to run rastervision in a GPU p3.2xlarge ubuntu linux instance on Amazon Web Services (AWS). The instance was created from an image with Docker and NVidia installed. Cygwin was used to access the instance. SSH compatability and python were two tool options necessary to download within cygwin. Once this was installed we needed to install the AWS command line tools using: 
+With the help of Dr. Lyndon Estes and Lewis Fishgold, we were able to run rastervision in a GPU p3.2xlarge ubuntu linux instance on Amazon Web Services (AWS). The instance was created from an image with Docker and NVidia installed. Cygwin was used to access the instance. SSH compatability and python were two tool options necessary to download within cygwin. Once this was installed we needed to install the AWS command line tools using:
 ```bash
+wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg
+install apt-cyg /bin
+apt-cyg install python
+wget https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
 pip install awscli
 ```
+This was helpful as it also install python in cygwin, which we needed to run rastervision and scripts/console later. Python, pip and apt-cyg can be installed in the intall process but there is no harm in running the commands to make sure. It is necessary to make sure that wget/ssh commands are installed in cygwin. This needs to be activated during the cygwin set up. 
+
+<img src="images/wget_cygwin.png" alt"7th Test" width="200">
+Image taken from the [yjwon on stack exchange](https://superuser.com/questions/693284/wget-command-not-working-in-cygwin).
+
+<img src="images/cygwin_5.jpg" alt"7th Test" width="200">
+Image taken from the [Oracle Help Center](https://docs.oracle.com/cd/E24628_01/install.121/e22624/preinstall_req_cygwin_ssh.htm#EMBSC150).
+
 The next step was to produce Public SSH keys so multiple users could access the AWS instance. Within cygwin, we followed the first two steps described in [Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) and then to set security for our permissions followed up with:
 ```bash
 chmod 400 ~/.ssh/id_rsa
