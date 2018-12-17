@@ -1,2 +1,0 @@
-
-# Clare likes rastervision
