@@ -60,6 +60,9 @@ rastervision run local -e potsdam.semantic_segmentation -a root_uri <Path to S3 
 # Results
 3. What were your results?  <br><br>
 Several attempts were made to run the rastervision code for the ISPRS Potsdam semantic segmentation dataset. Though our Amazon instance has GPU available, we discovered that the code referenced a CPU workflow. After 18 hours of running, the test completed only 2% of the task (Figure 2). Once we [adjusted for accessing the GPU](https://github.com/agroimpacts/geog287387/blob/master/materials/tutorials/ubuntu-deeplearning-ami-raster-vision.md#install-raster-vision-examples) we were evenutally able to run the code completely. A JSON file is created that indicates the success of predicting each class. Precision and a F-measure are calculated for this purpose. The F-measure is a metric to evaluate classification results that incorporates the harmonic mean of perciesion and recall metrics (Feranadez-Moral et al., 2017). 
+
+<img src="images/4way.PNG" alt"7th Test" width="800">
+
 <img src="images/2percent.png" alt"7th Test" width="400">
 Figure 2. Predicted image after 2% completion.
 
