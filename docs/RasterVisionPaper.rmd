@@ -4,13 +4,15 @@ author: "Marc, Clare, and NickyG"
 date: "December 11, 2018"
 output: html_document
 ---
-<br>
+
 
 ## Goals and Aims of the Project 
 
 Rastervision is an open source framework that uses python to build computer vision models on satelite imagery.  Our group wanted to use drone imagery and high resolution satelite imagery to segment fairy fungus rings in cranberry bogs and urban tree canopy cover respectively. We used an AWS instance to create a linux environment with rastervision and docker installed. Our group had the following goals: run rastervision quickstart, run rastervision example(s), run rastervision on personal data. Our group was  able to complete the first 2 objectives however we hope to provide information on how to prepare data to run your own semantic segmentation using rastervision based on personal data.
   
-Expertise barriers, model choice, and calibration are all limitations in earth observation identified by GEOG391 in *Recent Innovations and the Expanding Limits of Earth Observation*. Rastervision attempts to act as a potential solution to these limitations by streamlining the model choice, making deep learning algorithms and computer vision accessable to non computer scientists (like geographers). The two models that rastervision uses to run its different examples are Mobilenet (semantic segmentation) and Resnet50 (chip classification).  These models use deep neural networks to train computers to classify pixels in the case of Mobilenet and identify objects in the case of Resnet50. Rastervision allows these complex computer vision models to be used by inexperienced users to perform semantic segmentation and chip classification on large datasets. However, this is not necessarily a perfect solution to the limitations of earth observation as users do not a strong grasp of how the models run even though model set up  will influence the outputs. The push and pull between making models like Mobilenet acceccessable and understanding the algorithm is always going to be balance. Rastervisions is another useful stepping stone in advancing the earth observation.    
+Expertise barriers, model choice, and calibration are all limitations in earth observation identified by GEOG391 in *Recent Innovations and the Expanding Limits of Earth Observation*. Rastervision attempts to act as a potential solution to these limitations by streamlining the model choice, making deep learning algorithms and computer vision accessable to non computer scientists (like geographers). The two models that rastervision uses to run its different examples are Mobilenet (semantic segmentation) and Resnet50 (chip classification).  These models use deep neural networks to train computers to classify pixels in the case of Mobilenet and identify objects in the case of Resnet50. Rastervision allows these complex computer vision models to be used by inexperienced users to perform semantic segmentation and chip classification on large datasets. However, this is not necessarily a perfect solution to the limitations of earth observation as users do not a strong grasp of how the models run even though model set up  will influence the outputs. The push and pull between making models like Mobilenet acceccessable and understanding the algorithm is always going to be balance. Rastervisions is another useful stepping stone in advancing the earth observation. 
+
+[NG]
 <br>
   
 ## Methods/Workflow
@@ -25,29 +27,34 @@ wget https://bootstrap.pypa.io/get-pip.py
 python get-pip.py
 pip install awscli
 ```
+<br>
 This was helpful as it also installed python in cygwin which is needed to run rastervision and to run scripts/console later in the example. Python, pip and apt-cyg can be installed in the installation of cygwin but there is no harm in running to commands to double check you have everything necessary to install AWS command line.  
 
+<br>
 <center>
 <img src="images/wget_cygwin.png" alt"7th Test" width="600"> 
 </center>
 
+<br>
 Image taken from [yjwon on stack exchange](https://superuser.com/questions/693284/wget-command-not-working-in-cygwin) If you have installed cygwin without the packages you want, simply redo the installation process. 
 
+<br>
 <img src="images/cygwin_5.jpg" alt"7th Test" width="800">
 
 Image taken from [Oracle Help Center](https://docs.oracle.com/cd/E24628_01/install.121/e22624/preinstall_req_cygwin_ssh.htm#EMBSC150) 
 
+<br>
 The next step was to produce Public SSH keys so multiple users could access the AWS instance. Within cygwin, we followed the first two steps described in [Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) and then to set security for our permissions followed up with:
 ```cygwin
 chmod 400 ~/.ssh/id_rsa
 ```
 
 We had success running the ISPRS Potsdam Semantic Segmentation example from [rastervision examples github](https://github.com/azavea/raster-vision-examples). Screenshots of the input data are below.
-<br>
+<br><br>
 
-<img src="images/InputData.PNG" alt"7th Test" width="800">
+<img src="images/InputData.PNG" alt"7th Test" width="1000">
 
-Figure 1. From the [ISPRS 2D Semantic Labeling Contest - Potsdam webpage](http://www2.isprs.org/commissions/comm3/wg4/2d-sem-label-potsdam.html).
+**Figure 1.** From the [ISPRS 2D Semantic Labeling Contest - Potsdam webpage](http://www2.isprs.org/commissions/comm3/wg4/2d-sem-label-potsdam.html).
 <br><br>
 
 This example uses three different data layers in order to run the predictions. The data is 5cm aerial imagery which uses RBGIR bands to create a true color composite. The second layer is a normalized DSM using lidar imagery.  Finally, ground truth labels are created by hand for 6 classes: building, tree, low vegetation, impervious, car, and clutter. The format of six classes was ideal as the files utlized 3 bands, each with a binary value, for a total of 6 possible combinations. The RGBIR and label files were available as TIFFs. The lidar data was only used for distinguishing the classes and was not necessary beyond identifying the training data. Therefore, for future imitations lidar data is unneccesary if other means of classifying training data is used. All of the training data was downloaded through the request form indicated in the raster vision examples github, and uploaded to an Amazon S3. 
@@ -78,6 +85,8 @@ scripts/build --gpu
 scripts/console
 rastervision run local -e potsdam.semantic_segmentation -a root_uri <Path to S3 data ouput location> -a data_uri <Path to S3 Data Folder>
 ```
+
+[CG, NG, MH]
 <br>
 
 ## Results
@@ -91,7 +100,7 @@ Several attempts were made to run the rastervision code for the ISPRS Potsdam se
 
 <img src="images/4way.PNG" alt"7th Test" width="800">
 
-Figure 2. Tutorial Data and Outputs.
+**Figure 2.** Tutorial Data and Outputs.
 <br><br>
 
 A JSON file is created along with the output that indicates the success of predicting each class within the image. Precision and a F-measure are calculated for this purpose. The F-measure is a metric to evaluate classification results that incorporates the harmonic mean of precision and recall metrics (Feranadez-Moral et al., 2017). It combines the precsion metric ((True Positives)/(True Positives+False Positives)) and the recall metric ((True Positives)/(True Positives+False Negatives)) to explain the performance of the model (F1=2*1/(1/precision + 1/recall)). 
@@ -99,7 +108,7 @@ A JSON file is created along with the output that indicates the success of predi
 
 <img src="images/Initial_Eval.PNG" alt"7th Test" width="600">
 
-Table 1. Class Prediction Evaluation table for rastervision output
+**Table 1.** Class Prediction Evaluation table for rastervision output
 <br><br>
 
 Table 1 shows in green that the Building class has the highest F1 statistic. This may be because the spectral signatures across the RGBIR Potsdam image lead to easier classification for the Building class. This class has high Precision and high Recall leading to more accurate classification. Table 1 also shows in the red the lowest F1 statistic – Clutter which has low Precision and even lower Recall which shows it misclassified many instances because they were difficult to classify. This class is made up of various surface objects that do not make up any of the other classes and therefore is very hard to discern what exactly is to be included within it. The overall average of the F1 statistic places this output at 87.19%. 
@@ -108,58 +117,75 @@ To further investigate the results of the rastervision model, a crosstabulation 
 
 <img src="images/Crosstab.PNG" alt"7th Test" width="1000">
 
-Table 2. Crosstabulation results from the ISPRS Potsdam image and the rastervision output.
+**Table 2.** Crosstabulation results from the ISPRS Potsdam image and the rastervision output.
 <br><br>
 
 Table 2 shows the results of the crosstabulation: green shows overlap between each respective class category, yellow shows misclassification between a class category and another between 0.50% - 0.99%, and red shows misclassification between a class category and another that is greater than 1%. The highest misclassification (outlined in black) occurred between the Potsdam Tree class category and the rastervision Low Vegetation class category (6.23%). The second highest misclassification occurred between the Potsdam Low Vegetation class category and the rastervision Tree class category (1.46%). Upon further investigation, the differences are seen easily in comparisons between the classified images. 
 
 <img src="images/Tree-Low_Veg.PNG" alt"7th Test" width="1000">
 
-Figure 3. Comparison of ISPRS Potsdam training image (c) and rastervision output predicted image (b), and misclassification results (a) between the classified images class categories.
+**Figure 3.** Comparison of ISPRS Potsdam training image (c) and rastervision output predicted image (b), and misclassification results (a) between the classified images class categories.
 <br><br>
 
 For example, Figure 3a shows a difference image between the class categories of Potsdam Tree and rastervision Low Vegetation. Red pixels denote misclassification. Figure 3b and 3c show the rastervision output predicted image and ISPRS Potsdam training image. The yellow outlines show areas where tree canopy from the Potsdam image was misclassified as low vegetation. Canopy in these areas were significantly less than the training image, or entirely missed in classification. 
 
 <img src="images/Low_Veg-Imp.PNG" alt"7th Test" width="1000">
 
-Figure 4. Comparison of ISPRS Potsdam training image (c) and rastervision output predicted image (b), and misclassification results (a) between the classified images class categories.
+**Figure 4.** Comparison of ISPRS Potsdam training image (c) and rastervision output predicted image (b), and misclassification results (a) between the classified images class categories.
 <br><br>
 
 In another example, Figure 4a shows a difference image between the class categories of Potsdam Low Vegetation and rastervision Impervious Surface. Red pixels denote misclassification. Figure 4b and 4c show the Potsdam RGB image and ISPRS Potsdam training image. The areas outlined in yellow show a misclassification by ISPRS. In Figure 4b, you can see triangular shapes formed in the outlined grassy area. The actual make up of these lines are unknown, but ISPRS has classified them as Low Vegetation in Figure 3c. Rastervision was able to detect these minute differences and they are portrayed in the output image as impervious surface (Figure 3b or 2d).
 
 <img src="images/Category_Comp.PNG" alt"7th Test" width="800">
 
-Table 3. Results of crosstabulation by class for rastervision Output.
+**Table 3.** Results of crosstabulation by class for rastervision Output.
 <br><br>
 
 Table 3 shows a final comparison (percentage of pixels) between the Potsdam image and the Rastervision Output according to their class categories. The Over/Under Classification column displays whether rastervision over/under classified each class according to the Potsdam Image. As discussed previously, Tree and Low Vegetation classes are the most pronounced categories of misclassification. 
+
+[MH]
 <br><br>
 
 ## Recommendations
 Our recommendations would be to have the primary owner of the Amazon virtual machine service account launch all instances, as we found that adding permissions for other IPs to launch instances frusrating as the remote conection would close or reset prematurely without warning. Beyond this example, we persistently ran into permission issues throughout orientating our workflow for rastervision, so steps taken early to remove user limitations is ideal. This is also alleviated some through the use of cygwin, as we were unsuccessful on completing rastervision examples on platforms such as RStudio and Powershell within AWS instances. During the initial installation of cygwin, there are options for which features to download. Here is where we recommend users to add the SSH key as well as wget, which facilitated downloading python and AWS commandline in cygwin post-installation. For the AWS instance, utilizing a GPU and ensuring the GPU is referenced when running the code is necessary as the CPU was not capable of completing the rastervision iterations. There were many times we were stuck, with the most useful resources for pulling through being [Dr. Lynden Estes supporting documentation](file:///C:/Users/CGaffey/Documents/DroneClass/RasterVisionBick/docs/ubuntu-deeplearning-raster-vision-ami.html) the links through the [raster vision examples github] and advice from Lewis Fishgold (aka Lewfish), Rob Emanuele (aka lossyrob), and James McClain (aka jamesmcclain) on the Github social media platform, [GITTER](https://gitter.im/azavea/raster-vision).
 
+[CG]
+
 ## Next Steps
 The goal is to mimick the ISPRS Potsdam training data format to substitute our own data to use with rastervision. In the following examples, we will be using data collected by an unmanned aerial vehicle in 2015 over a cranberry bog.  An orthomosaic was created in PixD from multispectral data collected in NIR, green, and blue. The cranberry bog is under treatment for an infestation of fairy ring fungus that is visible from the aerial images. Traditional classification methods have not been sensitive enough to distinguish between healthy, effected, and recovering vegetation within the bog and the hope is rastervision will provide more realistic results than traditional methods. Unlike the Potsdam training data, in order to create a labels TIFF, a specific test field was chosen and an Iso Cluster Unsupervised Classification was run for 6 classes (Figure 6). This is following the lead of what was available within the Potsdam dataset and would also allow opportunity for sparsing of traits such as bare soil, multiple levels of recovering vegetation, and shadows due to clouds which are visible in the orthomosaic. To create individual images, a fishnet was laid on the test field (Figure 7).
 
-<img src="images/isoclusteronly.png" alt"7th Test" width="400">
+<br>
 
-Figure 6. The sample field iso cluster classification against the NGB orthomosaic. 
+<img src="images/isoclusteronly.png" alt"7th Test" width="600">
 
-<img src="images/samplengb.png" alt"7th Test" width="400">
+**Figure 6.** The sample field iso cluster classification against the NGB orthomosaic. 
 
-Figure 7. The NGB orthomosaic test field with the fishnet grid to form individual images.
+<br>
 
+<img src="images/samplengb.png" alt"7th Test" width="600">
+
+**Figure 7.** The NGB orthomosaic test field with the fishnet grid to form individual images.
+<br><br>
 
 The next step was to create corresponding NGB and label image files. This was done using the ArcMap Model Builder to iterate through each row to clip and save as a TIFF. 
 
-<img src="images/model.png" alt"7th Test" width="800">
+<img src="images/model.png" alt"7th Test" width="1000">
 
-Figure 8. The model used to take convert the fishnet grid to individual TIFFs. The top clip creates the Label TIFFs and the NGB TIFFs.
+**Figure 8.** The model used to take convert the fishnet grid to individual TIFFs. The top clip creates the Label TIFFs and the NGB TIFFs.
 <br><br>
 
 <img src="images/isoclust_example.png" alt"7th Test" width="800">
 
-Steps to follow would be to upload this dataset to the AWS S3 and adjust the code to reference this. Once the data and root folders are created, an instance can be launched and the previous workflow used to predict the vegetation classes. Once this completes, the data will be analyzed in hope that the predicted data is more informative to the stages of fairy ring fungus on the cranberry bog than the training data. If the classifications are redundant, the training data will need to be cleaned up in ArcMap and rerun. 
+**Figure 9.** A sample tile showing NGB False Color Composite (Left), Unsupervised Iso Cluster Classification categories (Right).
+<br><br>
+
+Steps to follow would be to upload this dataset to the AWS S3 and adjust the code to reference this. Once the data and root folders are created, an instance can be launched and the previous workflow can be used to predict the vegetation classes. Once this completes, the results will be reviewed to verify that the predicted output image is more informative and representative to the actual stages of fairy ring fungus in the cranberry bog. Results can be scruntinized using the process laid out in the previous Results section to gain a better understanding of how the training data and the output data match up. If the classifications are redundant or poor, the training data can be refined through manual editing and then rerun through through rastervision. 
+
+Similar steps could be followed to analyze various phenomena, even tree canopy, which is another preferred next step. Different data sets would be utilized, but the underlying preperation would be similar. Training and validation data would need to be prepared following the steps laid out above. Rastervision's promise lies in its versatility, as long as you can get it to run. 
+
+
+[CG, NG, MH]
+<br>
 
 # References
 
