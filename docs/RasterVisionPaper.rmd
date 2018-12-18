@@ -45,7 +45,7 @@ chmod 400 ~/.ssh/id_rsa
 We had success running the ISPRS Potsdam Semantic Segmentation example from [rastervision examples github](https://github.com/azavea/raster-vision-examples). Screenshots of the input data are below.
 <br>
 
-<img src="images/inputdata.png" alt"7th Test" width="800">
+<img src="images/InputData.PNG" alt"7th Test" width="800">
 
 Figure 1. From the [ISPRS 2D Semantic Labeling Contest - Potsdam webpage](http://www2.isprs.org/commissions/comm3/wg4/2d-sem-label-potsdam.html).
 <br><br>
