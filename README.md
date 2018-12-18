@@ -1,3 +1,3 @@
 # rastervisionproject
 
-# This was written in RSTudio
+By Clare, Marc and NickyG. 
